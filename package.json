@@ -1,0 +1,34 @@
+{
+  "name": "locar-tiler",
+  "version": "0.1.0",
+  "description": "Tiling system for downloading geodata from APIs by Spherical Mercator XYZ tile. Particularly useful for location-based augmented reality applications as it comes with JSON and Digital Elevation Model (Terrarium DEM) support by default; works nicely with LocAR.js.",
+  "dependencies": {
+    "fast-png": "^7.0.1",
+    "tsx": "^4.21.0",
+    "typescript": "^5.9.3"
+  },
+  "files": [
+    "dist"
+  ],
+  "main": "./dist/locar-tiler.umd.js",
+  "module": "./dist/locar-tiler.es.js",
+  "types":  "./dist/locar-tiler.d.ts",
+  "exports": {
+    ".": {
+      "types" : "./dist/locar-tiler.d.ts",
+      "import" : "./dist/locar-tiler.es.js",
+      "require" : "./dist/locar-tiler.umd.js"
+    }
+  },
+  "repository": {
+    "url": "https://github.com/AR-js-org/locar-tiler"
+  },
+  "scripts": {
+    "build": "tsc && vite build && npm pack",
+    "start": "tsc && tsx demo/demo.ts"
+  },
+  "devDependencies": {
+    "vite": "^7.2.7",
+    "vite-plugin-dts": "^4.5.4"
+  }
+}

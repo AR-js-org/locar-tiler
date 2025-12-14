@@ -1,0 +1,10 @@
+{
+	"compilerOptions": {
+	    "target": "ESNext",
+        "noEmit": true,
+        "moduleResolution": "nodenext",
+        "module": "nodenext",
+        "allowImportingTsExtensions": true
+    },
+    "include": ["lib/*.ts", "demo/demo.ts"]
+}
