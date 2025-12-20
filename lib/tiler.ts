@@ -83,7 +83,7 @@ export default abstract class Tiler {
                 .replace("{y}", tile.y.toString())
                 .replace("{z}", tile.z.toString())
             );
-            this.dataTiles[tileIndex] = tData;
+            this.dataTiles[tileIndex] = this.rawTileToStoredTile(tile, tData);
             return this.dataTiles[tileIndex];
         } 
         return null;
