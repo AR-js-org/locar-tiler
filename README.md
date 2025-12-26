@@ -1,5 +1,3 @@
-# locar-tiler
-
 `locar-tiler` is a tiled download system for geodata, particularly useful for augmented reality applications.
 
 ## Introduction
@@ -13,6 +11,10 @@ This tiling system is normally used for rendered 2D maps but can also be used fo
 Consequently `locar-tiler` needs to be provided with a server URL which accepts `x`, `y` and `z` parameters and serves data fro that tile.
 
 Note that `locar-tiler` does not include any mechanism to cache the tiled data - this is up to the developer to do. It merely downloads the tiled data when needed (i.e. the user moves into a new area) and holds it in memory so the data for that tile isn't downloaded if the user revisits that tile in the same session.
+
+## API Documentation
+
+Available on [GitHub Pages](https://ar-js-org.github.io/locar-tiler).
 
 ## Based on
 
