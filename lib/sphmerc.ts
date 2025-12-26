@@ -1,14 +1,24 @@
+/** Class representing a Spherical Mercator projection. */
 
 import Tile from './tile';
 import Constants from './constants';
 import { LonLat, EastNorth } from './point';
 
 export default class SphMercProjection  {
-    
+    /**
+     * Project a longitude and latitude into Spherical Mercator.
+     * @param {LonLat} lonLat - the longitude/latitude.
+     * @return {EastNorth} the Spherical Mercator coordinates. 
+     */
     project (lonLat: LonLat) : EastNorth {
         return {e: this.#lonToSphMerc(lonLat.lon), n:this.#latToSphMerc(lonLat.lat)};
     }
     
+    /**
+     * Unproject Spherical Mercator into longitude/latitude.
+     * @param {EastNorth} projected - the Spherical Mercator coordinates. 
+     * @return {LonLat} the longitude/latitude.
+     */
     unproject (projected: EastNorth): LonLat {
         return {lon: this.#sphMercToLon(projected[0]), lat:this.#sphMercToLat(projected[1])};
     }
@@ -32,6 +42,11 @@ export default class SphMercProjection  {
         return lat;
     }
     
+    /**
+     * Obtains a tile from a given Spherical Mercator position and zoom.
+     * @param {EastNorth} p - the Spherical Mercator position.
+     * @param {number} z - the zoom level. 
+     */
     getTile (p: EastNorth, z: number) : Tile {
         var tile = new Tile(-1, -1, z);
         var metresInTile = tile.getMetresInTile(); 
@@ -40,12 +55,20 @@ export default class SphMercProjection  {
         return tile;
     }
     
+    /**
+     * Obtains a tile from a given lon/lat and zoom.
+     * @param {LonLat} lonLat - the longitude/latitude.
+     * @param {number} z - the zoom level. 
+     */
     getTileFromLonLat(lonLat: LonLat, z: number): Tile {
         return this.getTile(this.project(lonLat), z);
     }
 
+    /**
+     * Return the projection's ID.
+     * @return {string} The value "epsg:3857".
+     */
     getID(): string {
         return "epsg:3857";
     }
 }
-

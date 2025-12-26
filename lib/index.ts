@@ -6,6 +6,7 @@ import DEM from './dem.ts';
 import JsonTiler from './jsontiler.ts';
 import { EastNorth, LonLat } from './point.ts';
 import SphMercProjection from './sphmerc.ts';
+import DemApplier from './demapplier.ts';
 
 export {
     Constants,
@@ -16,7 +17,8 @@ export {
     JsonTiler,
     EastNorth,
     LonLat,
-    SphMercProjection
+    SphMercProjection,
+    DemApplier
 };
 
 export type { DataTile } from './tile.ts';
