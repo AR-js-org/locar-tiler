@@ -16,6 +16,14 @@ class EastNorth {
         this.e = e;
         this.n = n;
     }
+
+    /**
+     * Returns a string representation of the EastNorth. 
+     * @return {string} the string representation. 
+     */
+    toString(): string {
+        return `e: ${this.e}, n: ${this.n}`;
+    }
 }
 
 /** Represents a longitude/latitude. 
@@ -27,7 +35,7 @@ class LonLat {
     lat: number;
 
     /**
-     * Creates an LonLat.
+     * Creates a LonLat.
      * @class
      * @param {number} lon - the longitude.
      * @param {number} lat - the latitude.
@@ -35,6 +43,14 @@ class LonLat {
     constructor(lon, lat) {
         this.lon = lon;
         this.lat = lat;
+    }
+
+    /**
+     * Returns a string representation of the LonLat. 
+     * @return {string} the string representation. 
+     */
+    toString(): string {
+        return `lon: ${this.lon}, lat: ${this.lat}`;
     }
 }
 

@@ -27,8 +27,8 @@ export default class DemTiler extends Tiler {
      */
     async readTile(url: string): Promise<RawPngData> {
         const response = await fetch(url, {
-			signal: AbortSignal.timeout(30000)
-		});
+            signal: AbortSignal.timeout(30000)
+        });
         const arrbuf = await response.arrayBuffer();
         const png = decode(arrbuf);
         let i: number, elev = 0;
@@ -48,13 +48,13 @@ export default class DemTiler extends Tiler {
      * @param {EastNorth} sphMercPos - the Spherical Mercator position.
      * @return {number} the elevation in metres, or Number.NEGATIVE_INFINITY if this position is outside the extent of the DEM.
      */
-    getElevation(sphMercPos: EastNorth): number {
+    getElevation(sphMercPos: EastNorth): number | null {
         const tile = this.getTile(sphMercPos, this.tile.z);
-        const indexedTile = this.dataTiles[`${tile.z}/${tile.x}/${tile.y}`];
+        const indexedTile = this.dataTiles.get(`${tile.z}/${tile.x}/${tile.y}`);
         if(indexedTile) {
-            return indexedTile.getElevation(sphMercPos[0], sphMercPos[1]);
+            return (indexedTile.data as DEM).getElevation(sphMercPos.e, sphMercPos.n);
         }
-        return Number.NEGATIVE_INFINITY;
+        return null; 
     }
 
     /**

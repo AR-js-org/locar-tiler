@@ -47,7 +47,7 @@ export default class DEM  {
         let x1: number,x2: number,y1:number,y2:number;
         let h1: number,h2: number,h3: number,h4: number;
         
-        let h = Number.NEGATIVE_INFINITY;
+        let h: number | null = null; 
 
         // 021114 change this so that points outside the DEM are given a height based on closest edge/corner
         // idea being to reduce artefacts at the edges of tiles

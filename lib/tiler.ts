@@ -91,7 +91,7 @@ export default abstract class Tiler {
         for(let ix=0; ix<tilesX.length; ix++) {    
             for(let iy=0; iy<tilesY.length; iy++) {    
                 const tile = new Tile(tilesX[ix], tilesY[iy], this.tile.z);
-                const data = this.dataTiles[tile.getIndex()];
+                const data = this.dataTiles.get(tile.getIndex());
                 if(data !== null) {
                     tiles.push({ data, tile });
                 }
@@ -111,14 +111,14 @@ export default abstract class Tiler {
 
     async #loadTile(tile: Tile) : Promise<DataTile> {
         const tileIndex = tile.getIndex();
-        if(this.dataTiles[tileIndex] === undefined) {
+        if(this.dataTiles.get(tileIndex) === undefined) {
             const tData: any | null = await this.readTile(this.url
                 .replace("{x}", tile.x.toString())
                 .replace("{y}", tile.y.toString())
                 .replace("{z}", tile.z.toString())
             );
-            this.dataTiles[tileIndex] = this.rawTileToStoredTile(tile, tData);
-            return this.dataTiles[tileIndex];
+            this.dataTiles.set(tileIndex, this.rawTileToStoredTile(tile, tData));
+            return this.dataTiles.get(tileIndex);
         } 
         return null;
     }
@@ -136,10 +136,10 @@ export default abstract class Tiler {
      * @param {number} z - zoom level to use (default 13)
      * @return {Promise<Tile>} Promise resolving with the given Tile.
      */
-    async getData (sphMercPos: EastNorth, z:number=13) : Promise<Tile> {
+    async getData (sphMercPos: EastNorth, z:number=13) : Promise<DataTile> {
         await this.update(sphMercPos);
         const thisTile = this.sphMerc.getTile(sphMercPos, z);
-        return this.dataTiles[`${z}/${thisTile.x}/${thisTile.y}`];
+        return this.dataTiles.get(`${z}/${thisTile.x}/${thisTile.y}`);
     }
 
     /**

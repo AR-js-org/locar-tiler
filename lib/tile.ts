@@ -59,6 +59,10 @@ export default class Tile {
     getIndex(): string {
         return `${this.z}/${this.x}/${this.y}`;
     }
+
+    toString(): string {
+        return this.getIndex();
+    }
 }
 
 /** Represents the association of a Tile with its data. 
