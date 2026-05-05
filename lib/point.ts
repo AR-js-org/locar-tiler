@@ -27,22 +27,22 @@ class EastNorth {
 }
 
 /** Represents a longitude/latitude. 
- * @property {number} lon - the longitude.
- * @property {number} lat -the latitude.
+ * @property {number} longitude - the longitude.
+ * @property {number} latitude -the latitude.
  */
 class LonLat {
-    lon: number;
-    lat: number;
+    longitude: number;
+    latitude: number;
 
     /**
      * Creates a LonLat.
      * @class
-     * @param {number} lon - the longitude.
-     * @param {number} lat - the latitude.
+     * @param {number} longitude - the longitude.
+     * @param {number} latitude - the latitude.
      */
-    constructor(lon, lat) {
-        this.lon = lon;
-        this.lat = lat;
+    constructor(longitude, latitude) {
+        this.longitude = longitude;
+        this.latitude = latitude;
     }
 
     /**
@@ -50,7 +50,7 @@ class LonLat {
      * @return {string} the string representation. 
      */
     toString(): string {
-        return `lon: ${this.lon}, lat: ${this.lat}`;
+        return `longitude: ${this.longitude}, latitude: ${this.latitude}`;
     }
 }
 

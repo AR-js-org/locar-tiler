@@ -11,7 +11,7 @@ export default class SphMercProjection  {
      * @return {EastNorth} the Spherical Mercator coordinates. 
      */
     project (lonLat: LonLat) : EastNorth {
-        return {e: this.#lonToSphMerc(lonLat.lon), n:this.#latToSphMerc(lonLat.lat)};
+        return {e: this.#lonToSphMerc(lonLat.longitude), n:this.#latToSphMerc(lonLat.latitude)};
     }
     
     /**
@@ -20,7 +20,7 @@ export default class SphMercProjection  {
      * @return {LonLat} the longitude/latitude.
      */
     unproject (projected: EastNorth): LonLat {
-        return {lon: this.#sphMercToLon(projected[0]), lat:this.#sphMercToLat(projected[1])};
+        return {longitude: this.#sphMercToLon(projected[0]), latitude:this.#sphMercToLat(projected[1])};
     }
     
     #lonToSphMerc(lon) : number {
