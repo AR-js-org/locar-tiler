@@ -1,21 +1,21 @@
 
 export interface Point {
     type: string;
-    coordinates: number[];
+    coordinates: [number, number, number?];
 }
 
 export interface LineString {
     type: string;
-    coordinates: number[][];
+    coordinates: Array<[number, number, number?]>;
 }
 
 export interface MultiLineString {
     type: string;
-    coordinates: number[][][];
+    coordinates: Array<Array<[number, number, number?]>>; 
 }
 export interface Feature {
     type: string;
-    properties: any; 
+    properties: Map<string, any>; 
     geometry: Point | LineString | MultiLineString;
 }
 

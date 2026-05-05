@@ -14,7 +14,7 @@ export default class DemTiler extends Tiler {
     /**
      * Create a DemTiler.
      * @class
-     * @param {string} URL of the server delivering the tiles.
+     * @param {string} url - URL of the server delivering the tiles.
      */
     constructor(url: string) {
         super(url);
