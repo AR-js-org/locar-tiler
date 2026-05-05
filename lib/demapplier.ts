@@ -13,7 +13,7 @@ import { LonLat, EastNorth } from './point';
 import type { DataTile } from './tile';
 import DEM from './dem';
 
-import type { FeatureCollection, Feature, Point, LineString } from '../types/geojson';
+import type { FeatureCollection, Feature, Point, LineString, MultiLineString } from '../types/geojson';
 
 /**
  * Class to apply DEM tiles to GeoJSON tiles. The elevation in metres will be added as the third member of each geometry coordinate in the GeoJSON.
@@ -61,21 +61,38 @@ export default class DemApplier {
          const data = jsonTile.data as FeatureCollection;
          data.features.forEach  ( (f: Feature, i: number)=> {
             const line = [];
-            if(f.geometry.type=='LineString' && f.geometry.coordinates.length >= 2) {
-                (f.geometry as LineString).coordinates.forEach (coord=> {
-                    const projCoord = this.demTiler.sphMerc.project(new LonLat(coord[0], coord[1]));
-                    const h = (demTile.data as DEM)?.getElevation(projCoord.e, projCoord.n) ?? 0;
-                    if (h > Number.NEGATIVE_INFINITY) {
-                        coord[2] = h; // raw geojson will contain elevations
+            switch(f.geometry.type) {
+                case 'LineString':
+                    const lineString = f.geometry as LineString;
+                    if(lineString.coordinates.length >= 2) {
+                        this.#processLineString(demTile, lineString.coordinates);
                     }
-               });
-            } else if(f.geometry.type == 'Point') {
-                const pt = f.geometry as Point;
-                const projCoord = this.demTiler.sphMerc.project(new LonLat(f.geometry.coordinates[0], f.geometry.coordinates[1]));
-                const h = demTile.data ? demTile.data.getElevation(projCoord.e, projCoord.n) : 0;
-                if(h > Number.NEGATIVE_INFINITY) {
-                    f.geometry.coordinates[2] = h;
-                }
+                    break;
+                case 'MultiLineString':
+                    const mls = f.geometry as MultiLineString;
+                    for(let lineString of mls.coordinates) {
+                        if(lineString.length >= 2) {
+                            this.#processLineString(demTile, lineString);
+                        }
+                    }                
+                    break;
+                case 'Point':
+                    const pt = f.geometry as Point;
+                    const projCoord = this.demTiler.sphMerc.project(new LonLat(f.geometry.coordinates[0], f.geometry.coordinates[1]));
+                    const h = demTile.data ? demTile.data.getElevation(projCoord.e, projCoord.n) : 0;
+                    if(h > Number.NEGATIVE_INFINITY) {
+                        f.geometry.coordinates[2] = h;
+                    }
+            }
+        });
+    }
+
+    #processLineString(demTile: DataTile, coordinates: Array<[number, number, number?]>) {
+        coordinates.forEach (coord=> {
+            const projCoord = this.demTiler.sphMerc.project(new LonLat(coord[0], coord[1]));
+            const h = (demTile.data as DEM)?.getElevation(projCoord.e, projCoord.n) ?? 0;
+            if (h > Number.NEGATIVE_INFINITY) {
+                coord[2] = h; // raw geojson will contain elevations
             }
         });
     }
