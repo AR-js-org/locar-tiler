@@ -90,6 +90,21 @@ export default class DEM  {
     processData(fn: (elevs: number[], bottomLeft: EastNorth, ptWidth: number, ptHeight: number, xSpacing: number, ySpacing: number) => void) {
         fn(this.elevs, this.#bottomLeft, this.#ptWidth, this.#ptHeight, this.#xSpacing, this.#ySpacing);
     }
+
+    /** Return the bottom left coordinate. */
+    getBottomLeft() : EastNorth {
+        return this.#bottomLeft;
+    }
+
+    /** Return the number of points in the x and y directions. */
+    getNPoints() : [number, number] {
+        return [this.#ptWidth, this.#ptHeight];
+    }
+
+    /** Return the spacing in Spherical Mercator units in the x and y directions. */
+    getSpacing() : [number, number] {
+        return [this.#xSpacing, this.#ySpacing];
+    }
 }
 
 
