@@ -85,6 +85,11 @@ export default class DEM  {
         } 
         return h;
     }
+
+    /** Process the DEM data with a custom function. The function has access to all the key properties of the DEM. */
+    processData(fn: (elevs: number[], bottomLeft: EastNorth, ptWidth: number, ptHeight: number, xSpacing: number, ySpacing: number) => void) {
+        fn(this.elevs, this.#bottomLeft, this.#ptWidth, this.#ptHeight, this.#xSpacing, this.#ySpacing);
+    }
 }
 
 
