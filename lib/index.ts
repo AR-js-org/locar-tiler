@@ -23,4 +23,3 @@ export {
 
 export type { DataTile } from './tile.ts';
 export type { RawPngData } from '../types/rawpngdata.ts';
-export type { Point, LineString, MultiLineString, Feature, FeatureCollection } from '../types/geojson.ts';

@@ -13,7 +13,8 @@ import { LonLat, EastNorth } from './point';
 import type { DataTile } from './tile';
 import DEM from './dem';
 
-import type { FeatureCollection, Feature, Point, LineString, MultiLineString } from '../types/geojson';
+//import type { FeatureCollection, Feature, Point, LineString, MultiLineString } from '../types/geojson';
+import type { FeatureCollection, Feature, Point, LineString, MultiLineString, Position } from 'geojson';
 
 /**
  * Class to apply DEM tiles to GeoJSON tiles. The elevation in metres will be added as the third member of each geometry coordinate in the GeoJSON.
@@ -87,7 +88,7 @@ export default class DemApplier {
         });
     }
 
-    #processLineString(demTile: DataTile, coordinates: Array<[number, number, number?]>) {
+    #processLineString(demTile: DataTile, coordinates: Position[]) {
         coordinates.forEach (coord=> {
             const projCoord = this.demTiler.sphMerc.project(new LonLat(coord[0], coord[1]));
             const h = (demTile.data as DEM)?.getElevation(projCoord.e, projCoord.n) ?? 0;
