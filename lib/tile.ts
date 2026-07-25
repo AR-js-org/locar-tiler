@@ -67,9 +67,9 @@ export default class Tile {
 
 /** Represents the association of a Tile with its data. 
  * @property {Tile} tile - the tile.
- * @property {any | null} data - the data stored in the tile.
+ * @property {T} data - the data stored in the tile.
  */
-export interface DataTile {
+export interface DataTile<T> {
     tile: Tile;
-    data: any | null;
+    data: T;
 }

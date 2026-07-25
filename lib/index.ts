@@ -3,7 +3,7 @@ import Tile from './tile.ts';
 import Tiler from './tiler.ts';
 import DemTiler from './demtiler.ts'; 
 import DEM from './dem.ts';
-import JsonTiler from './jsontiler.ts';
+import GeoJsonTiler from './jsontiler.ts';
 import { EastNorth, LonLat } from './point.ts';
 import SphMercProjection from './sphmerc.ts';
 import DemApplier from './demapplier.ts';
@@ -14,7 +14,7 @@ export {
     Tiler,
     DemTiler,
     DEM,
-    JsonTiler,
+    GeoJsonTiler,
     EastNorth,
     LonLat,
     SphMercProjection,
