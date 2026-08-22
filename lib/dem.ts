@@ -37,9 +37,9 @@ export default class DEM  {
     /** Obtains the elevation in metres at a given x and y Spherical Mercator coordinate using bilinear interpolation.
      * @param {number} x - the Spherical Mercator x coordinate.
      * @param {number} y - the Spherical Mercator y coordinate.
-     * @return {number} the elevation in metres
+     * @return {number | null} the elevation in metres or null if the given point is not within this DEM
      */
-    getElevation(x: number, y: number): number {
+    getElevation(x: number, y: number): number | null {
         let p = [x,y];
         let xIdx = Math.floor((p[0]-this.#bottomLeft.e) / this.#xSpacing),
             yIdx = this.#ptHeight-(Math.ceil((p[1] - this.#bottomLeft.n) / this.#ySpacing));
@@ -47,7 +47,7 @@ export default class DEM  {
         let x1: number,x2: number,y1:number,y2:number;
         let h1: number,h2: number,h3: number,h4: number;
         
-        let h: number | null = null; 
+        let h : number | null = null;
 
         // 021114 change this so that points outside the DEM are given a height based on closest edge/corner
         // idea being to reduce artefacts at the edges of tiles

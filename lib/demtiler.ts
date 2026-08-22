@@ -61,10 +61,10 @@ export default class DemTiler extends Tiler<DEM, RawPngData> {
     /**
      * Obtain the elevation in metres for a given longitude/latitude. 
      * @param {LonLat} lonLat - the longitude/latitude. 
-     * @return {number} the elevation in metres, or Number.NEGATIVE_INFINITY if this position is outside the extent of the DEM.
+     * @return {number} the elevation in metres, or null if this position is outside the extent of the DEM.
      */
-    getElevationFromLonLat(lonLat: LonLat): number {
-        return this.getElevation(this.sphMerc.project(lonLat)) ?? Number.NEGATIVE_INFINITY;
+    getElevationFromLonLat(lonLat: LonLat): number | null {
+        return this.getElevation(this.sphMerc.project(lonLat));
     }
 
     /**

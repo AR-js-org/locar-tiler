@@ -79,8 +79,8 @@ export default class DemApplier {
                     break;
                 case 'Point':
                     const projCoord = this.demTiler.sphMerc.project(new LonLat(f.geometry.coordinates[0], f.geometry.coordinates[1]));
-                    const h = demTile.data ? demTile.data.getElevation(projCoord.e, projCoord.n) : 0;
-                    if (h > Number.NEGATIVE_INFINITY) {
+                    const h = demTile.data ? demTile.data.getElevation(projCoord.e, projCoord.n) : null; 
+                    if (h !== null) {
                         f.geometry.coordinates[2] = h;
                     }
             }
@@ -90,9 +90,9 @@ export default class DemApplier {
     #processLineString(demTile: DataTile<DEM>, coordinates: Position[]) {
         coordinates.forEach(coord => {
             const projCoord = this.demTiler.sphMerc.project(new LonLat(coord[0], coord[1]));
-            const h = (demTile.data as DEM)?.getElevation(projCoord.e, projCoord.n) ?? 0;
-            if (h > Number.NEGATIVE_INFINITY) {
-                coord[2] = h; // raw geojson will contain elevations
+            const h = (demTile.data as DEM)?.getElevation(projCoord.e, projCoord.n) ?? null; 
+            if(h !== null) {
+                coord[2] = h;
             }
         });
     }
